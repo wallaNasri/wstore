@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\categoriesController;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'Admin\HomeController@index');
-    
 
 
+Route::get('/p', function () {
+    return Hash::make('$2y$10$xoozYUH0ukpqLAJ8UtRvVeS3p7C3lyfGx3wOqSGhcGVGYeipfsMdS');
+
+});
 
 
 Route::get('/Product', function () {

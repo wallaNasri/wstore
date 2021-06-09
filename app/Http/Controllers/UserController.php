@@ -45,12 +45,9 @@ class UserController extends Controller
             'email'=>'required|email|unique:users,email',
             'phone'=>'required|regex:/^05[96][-]\d{7}$/|unique:users,phone',
             'password'=>'required|min:9|max:15',
-            'gender'=>'required|in:Female,Male',
-            'birth_date'=>['date',
-            function($attribute,$value,$fail){
-                if(Carbon::now()->addYear(-14)>=date(2007-00-00)){
-                    $fail('The age must be less than 14');
-                } }]
+            'gender'=>'required|in:female,male',
+            'birth_date'=>'date',
+           
         ] );
 
 

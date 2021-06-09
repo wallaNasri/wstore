@@ -1,15 +1,18 @@
 <?php
 
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 class RegisteredUserController extends Controller
 {
@@ -37,17 +40,18 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone'=>'required|regex:/^05[96][-]\d{7}$/|unique:users,phone',
+            'gender'=>'required|in:female,male',
+            'birth_date'=>'date',
+        
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $user = User::create($request->all());
+        
 
         event(new Registered($user));
 
-        Auth::login($user);
+      Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
