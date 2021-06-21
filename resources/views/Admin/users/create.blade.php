@@ -31,16 +31,36 @@ Error
         <label> Phone</label>
         <input name="phone" value="{{ old('phone') }}" type="text" class="form-control @error('phone') is-invalid @enderror">
         @error('phone')
-        <p class="invalid-feedback">{{$message}}</p>         @enderror
+        <p class="invalid-feedback">{{$message}}</p>   
+              @enderror
     </div>
 
-    <div class="form-group mb-3">
-        <label>Password</label>
-        <input name="password" value="{{ old('password') }}" type="password" class="form-control @error('password') is-invalid @enderror">
-        @error('password')
-        <p class="invalid-feedback">{{$message}}</p>
-         @enderror
-    </div>
+        <!-- Password -->
+        <div class="form-group mb-3">
+                <x-label for="password" :value="__('Password')" />
+
+                <x-input id="password" class="form-control @error('phone') is-invalid @enderror"
+                                type="password"
+                                name="password"
+                                required autocomplete="new-password" />
+
+                                @error('password')
+                               <p class="invalid-feedback">{{$message}}</p>   
+                                @enderror                
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group mb-3">
+                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+
+                <x-input id="password_confirmation" class="form-control @error('phone') is-invalid @enderror"
+                                type="password"
+                                name="password_confirmation" required />
+
+                                @error('password_confirmation')
+                              <p class="invalid-feedback">{{$message}}</p>   
+                              @enderror
+            </div>
 
 
 

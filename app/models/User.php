@@ -6,11 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
-
+    
+use HasApiTokens;
     /**
      * The attributes that are mass assignable.
      *
@@ -49,4 +51,20 @@ class User extends Authenticatable implements MustVerifyEmail
         'first_name'=>'No Profle'
     ]);
 }
+
+public function roles(){
+    return $this->belongsToMany(Role::class,'role_user','user_id','role_id','id','id');
+}
+
+public function hasAbility($ability){
+    foreach($this->roles as $role){
+        if(in_array($ability,$role->abilities)){
+            return true;
+        }
+    }
+    return false;
+
+}
+
+
 }

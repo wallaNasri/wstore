@@ -12,26 +12,60 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div>
-
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
             <div class="form-group mb-3">
+        <label> Name</label>
+        <input name="name" value="{{ old('name') }}" type="text" class="form-control @error('name') is-invalid @enderror">
+        @error('name')
+        <p class="invalid-feedback">{{$message}}</p>
+         @enderror
+    </div>
+
+
+
+    <div class="form-group mb-3">
+        <label> Email</label>
+        <input name="email" value="{{ old('email') }}" type="text" class="form-control @error('email') is-invalid @enderror">
+        @error('email')
+        <p class="invalid-feedback">{{$message}}</p>
+         @enderror
+    </div>
+
+    <div class="form-group mb-3">
         <label> Phone</label>
         <input name="phone" value="{{ old('phone') }}" type="text" class="form-control @error('phone') is-invalid @enderror">
         @error('phone')
-        <p class="invalid-feedback">{{$message}}</p>         @enderror
+        <p class="invalid-feedback">{{$message}}</p>   
+              @enderror
     </div>
+
+        <!-- Password -->
+        <div class="form-group mb-3">
+                <x-label for="password" :value="__('Password')" />
+
+                <x-input id="password" class="form-control @error('phone') is-invalid @enderror"
+                                type="password"
+                                name="password"
+                                required autocomplete="new-password" />
+
+                                @error('password')
+                               <p class="invalid-feedback">{{$message}}</p>   
+                                @enderror                
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group mb-3">
+                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+
+                <x-input id="password_confirmation" class="form-control @error('phone') is-invalid @enderror"
+                                type="password"
+                                name="password_confirmation" required />
+
+                                @error('password_confirmation')
+                              <p class="invalid-feedback">{{$message}}</p>   
+                              @enderror
+            </div>
+
+
 
     <div class="form-group mb-3">
         <label for="">Gender:</label>
@@ -53,26 +87,6 @@
         <p class="invalid-feedback">{{$message}}</p>
          @enderror
     </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}

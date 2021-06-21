@@ -6,15 +6,25 @@
     <meta http-equiv="x-UA-compatible" content="IE=edge">
     <title>{{config('app.name')}}</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-@yield('css')
+    @yield('css')
 </head>
 
 <body>
     <header class="py-2 bg-dark text-white mb-4">
         <div class="container">
-            <h1 class="h3">{{config('app.name')}}</h1>
+            <div class="d-flex">
+                <h1 class="h3">{{config('app.name')}}</h1>
+                @auth
+                <div class="ms-auto">
+                    Hi, {{Auth::user()->name}}
+                    <a href="#" onclick="document.getElementById('logout').submit()">Logout</a>
+                    <form id="logout" class="d-none" action="{{route('logout')}} " method="POST">
+                    @csrf
+                    </form>
+                </div>
+                @endauth
+            </div>
         </div>
-
     </header>
 
     <div class="container">
@@ -38,9 +48,9 @@
 
             </aside>
             <main class="col-md-9">
-            <h2 class="mb-4"> @yield('title')</h2>
+                <h2 class="mb-4"> @yield('title')</h2>
 
-           
+
                 @yield('content')
 
             </main>
@@ -50,7 +60,7 @@
 
     </div>
     <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
-@yield('js')
+    @yield('js')
 </body>
 
 </html>

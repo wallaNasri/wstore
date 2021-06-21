@@ -32,6 +32,7 @@ Route::group([
     'prefix'=>'admin/categories',
    // 'namespace'=>'Admin',
     'as'=>'admin.categories.',// for the name
+    'middleware'=>['auth','password.confirm'],
 
 ],function(){
 Route::get('/',[categoriesController::class,'index'])->name('index');
@@ -42,8 +43,10 @@ Route::put('/{id}',[categoriesController::class,'update'])->name('update');
 Route::delete('/{id}',[categoriesController::class,'destroy'])->name('destroy');
 });
 
-Route::resource('admin/users','UserController');
-Route::resource('admin/products','Admin\productsController');
+Route::resource('admin/users','UserController')->middleware(['auth','verified']);
+Route::resource('admin/products','Admin\productsController')->middleware(['auth','user.type:admin,user']);
+Route::resource('roles','Admin\RolesController');
+
 
 
 
@@ -51,7 +54,7 @@ Route::resource('admin/products','Admin\productsController');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth','verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
