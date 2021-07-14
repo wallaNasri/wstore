@@ -3,22 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-class ProductsController extends Controller
+class ProductController extends Controller
 {
-    
-     public function __construct()
-     {
-         $this->middleware('auth:sanctum');
-     }
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $product= Product::all();
-        return response()->json($product);
+        //
     }
 
     /**
@@ -29,17 +25,7 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(Product::validateRules());
-        $request->merge([
-            'slug'=>Str::slug($request->name),
-            'store_id'=>1,
-
-        ]);
-
-        $product=Product::create($request->all());
-         $product->refresh();
-         return response()->json($product,201);
-
+        //
     }
 
     /**
@@ -50,7 +36,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        return Product::findOrFail($id);
+        //
     }
 
     /**
@@ -62,15 +48,7 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate(Product::validateRules());
-        $product= Product::findOrFail($id);
-
-       
-        $product->update($request->all());
-         return response()->json([
-             'message'=>'Product Updated',
-             'data'=>$product,
-         ],200);
+        //
     }
 
     /**
@@ -81,13 +59,6 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $product= Product::findOrFail($id);
-        $product->delete();
-        return response()->json([
-            'message'=>'Product Deleted',
-            'data'=>$product,
-        ],200);
-
-
+        //
     }
 }

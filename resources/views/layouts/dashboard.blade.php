@@ -61,6 +61,22 @@
     </div>
     <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
     @yield('js')
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('353e99b54e14c230a27f', {
+      cluster: 'ap2',
+      authEndpoint:"/broadcasting/auth",
+    });
+
+    var channel = pusher.subscribe('private-App.Models.User.{{Auth::id()}}');
+    channel.bind('Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', function(data) {
+      alert(JSON.stringify(data));
+    });
+  </script>
 </body>
 
 </html>

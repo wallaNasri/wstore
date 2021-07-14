@@ -1,3 +1,4 @@
+
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
@@ -32,7 +33,7 @@
 
     <div class="form-group mb-3">
         <label> Phone</label>
-        <input name="phone" value="{{ old('phone') }}" type="text" class="form-control @error('phone') is-invalid @enderror">
+        <input name="phone" value="{{ old('phone') }}" type="text" placeholder="059-xxxxxxx" class="form-control @error('phone') is-invalid @enderror">
         @error('phone')
         <p class="invalid-feedback">{{$message}}</p>   
               @enderror

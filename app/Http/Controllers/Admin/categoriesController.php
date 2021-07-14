@@ -13,7 +13,7 @@ class categoriesController extends Controller
 {
     public function index(Request $request)
     {
-        $this->authorize('view-any',Category::class);
+       // $this->authorize('view-any',Category::class);
 
         $categories=Category::when($request->name,function($query,$value){
             $query->where('categories.name','LIKE',"%$value%")
@@ -39,7 +39,7 @@ class categoriesController extends Controller
     }
 public function create()
 {
-    $this->authorize('create',Category::class);
+  //  $this->authorize('create',Category::class);
 
     $parents=Category::orderBy('name','asc')->get();
     return view('admin.categories.create',['parents'=>$parents]);
@@ -47,7 +47,7 @@ public function create()
 
 public function store(Request $request)
 {
-    $this->authorize('create',Category::class);
+   // $this->authorize('create',Category::class);
 
 
     $this->validateRequest($request);
@@ -72,7 +72,7 @@ public function edit($id){
     ->orderBy('name','asc')
     ->get();
     $category=Category::findOrFail($id);
-    $this->authorize('update',$category);
+  //  $this->authorize('update',$category);
 
    // if( $category==null){
     //    abort(404);
@@ -87,7 +87,7 @@ public function edit($id){
 }
 public function update(Request $request,$id){
     $category=Category::findOrFail($id);
-    $this->authorize('update',$category);
+   // $this->authorize('update',$category);
 
 
     $this->validateRequest($request,$id);
@@ -110,7 +110,7 @@ public function update(Request $request,$id){
 public function destroy($id)
 {
     $category=Category::findOrFail($id);
-    $this->authorize('delete',$category);
+   // $this->authorize('delete',$category);
     $category->delete(); 
      
       return redirect()
@@ -142,8 +142,6 @@ protected function validateRequest(Request $request,$id=0)
             'image'=>[
                 'nullable',
                 'image',
-                'max:1048576',
-                'dimensions:min_width=200,min_height=300'
             ],
             'status'=>'required|in:active,inactive'
 

@@ -19,7 +19,7 @@ class productsController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('view-any',Product::class);
+      //  $this->authorize('view-any',Product::class);
 
         $products=Product::when($request->name,function($query,$value){
             $query->where('products.name','LIKE',"%$value%")
@@ -51,7 +51,7 @@ class productsController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Product::class);
+        //$this->authorize('create',Product::class);
 
         return view('admin.products.create',[
             'product'=>new Product(),
@@ -67,7 +67,7 @@ class productsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create',Product::class);
+        //$this->authorize('create',Product::class);
 
       
         //validateRules function in the Product model 
@@ -124,7 +124,7 @@ class productsController extends Controller
     public function show($id)
     {
         $product=Product::findOrFail($id);
-        $this->authorize('view',$product);
+     //   $this->authorize('view',$product);
 
        return view('admin products.show',[
            'product'=>$product,
@@ -140,7 +140,7 @@ class productsController extends Controller
     public function edit($id)
     {
         $product=Product::findOrFail($id);
-        $this->authorize('update',$product);
+      //  $this->authorize('update',$product);
 
         $tags=$product->tags()->pluck('name')->toArray();
         
@@ -162,7 +162,7 @@ class productsController extends Controller
     public function update(Request $request, $id)
     {
         $product=Product::findOrFail($id);
-        $this->authorize('update',$product);
+      //  $this->authorize('update',$product);
 
         request()->validate(Product::validateRules());
 
@@ -220,7 +220,7 @@ class productsController extends Controller
     public function destroy($id)
     {
         $product=Product::findOrFail($id);
-        $this->authorize('delete',$product);
+      //  $this->authorize('delete',$product);
 
         $product->delete();
         if($product->image){
